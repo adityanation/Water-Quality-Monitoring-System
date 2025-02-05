@@ -1,9 +1,9 @@
-Water quality monitoring systems play a critical role in safeguarding human health and environmental sustainability by assessing and maintaining the quality of water resources.
+Water quality monitoring systems play a critical role in safeguarding human health and environmental sustainability by assessing and maintaining the quality of water resourc
 This abstract provides an overview of such systems, highlighting their importance, components, methods, and applications. 
 Water quality monitoring involves the systematic measurement and analysis of physical, chemical, and biological parameters to evaluate the suitability of water for various uses.
 Key parameters commonly monitored include temperature, pH, dissolved oxygen, turbidity, conductivity, and concentrations of pollutants such as nutrients, heavy metals, and pathogens.
 Monitoring can be conducted using a combination of in-situ sensors, remote sensing technologies, and laboratory analysis.
-In-situ sensors are deployed directly in water bodies to provide real-time data, while remote sensing techniques utilize satellites or aerial platforms to assess water quality over larger spatial scales.
+In-sit sensors are deployed directly in water bodies to provide real-time data, while remote sensing techniques utilize satellites or aerial platforms to assess water quality over larger spatial scales.
 Laboratory analysis offers high precision and accuracy for certain parameters but may require time-consuming sample collection and processing. 
 Water quality monitoring systems are utilized in a wide range of applications, including drinking water management, wastewater treatment, agricultural runoff monitoring, aquatic ecosystem assessment, and industrial process control. 
 These systems aid in detecting pollution, tracking environmental trends, assessing compliance with regulatory standards, and guiding decision-making processes for water resource management and conservation efforts. Continuous advancements in sensor technology, data analytics, and remote monitoring capabilities are enhancing the effectiveness and efficiency of water quality monitoring systems, enabling stakeholders to address emerging challenges such as climate change impacts, population growth, and emerging contaminants. 
