@@ -13,8 +13,6 @@ for i in range(len(col)):
     plt.title(col[i])
     sns.distplot(df,x=df[col[i]])
 plt.tight_layout()
-plt.show()
-#this one is distplot by features
 
 fig = plt.figure(figsize=(15,10))
 
