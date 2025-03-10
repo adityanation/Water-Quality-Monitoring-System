@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# ------------------------------
+# IMPORT REQUIRED LIBRARIES
+# ------------------------------
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -8,24 +11,39 @@ import category_encoders as ce
 import graphviz
 import lingam
 from lingam.utils import make_dot, make_prior_knowledge
-
 import warnings
-warnings.filterwarnings("ignore")  # Suppress warnings for clean output
 
-# Debugging: Check if running in an interactive environment
+# Suppress warnings for cleaner output
+warnings.filterwarnings("ignore")  
+
+# Debugging: Check execution environment
 try:
     from IPython import get_ipython
     if get_ipython():
-        print("Running in an interactive environment (e.g., Jupyter Notebook).")
+        print("✅ Running in an interactive environment (e.g., Jupyter Notebook).")
     else:
-        print("Running in a script execution environment.")
+        print("✅ Running in a script execution environment.")
 except:
-    print("Standard execution mode detected.")
+    print("✅ Standard execution mode detected.")
 
-# Assuming 'df' is your DataFrame
-# Load your dataset here if needed, e.g., df = pd.read_csv("your_data.csv")
+# ------------------------------
+# LOAD THE DATASET
+# ------------------------------
+# Replace 'your_data.csv' with the actual file path
+try:
+    df = pd.read_csv("your_data.csv")
+    print("✅ Dataset loaded successfully!")
+except Exception as e:
+    print(f"❌ Error loading dataset: {e}")
+    exit()
 
-# Define column names
+# Display the first few rows to check data
+print("🔍 First few rows of the dataset:")
+print(df.head())
+
+# ------------------------------
+# DEFINE COLUMN NAMES
+# ------------------------------
 columns = [
     'Temperature\n?C (Min)', 'Temperature\n?C (Max)',
     'Dissolved Oxygen (mg/L) (Min)', 'Dissolved Oxygen (mg/L) (Max)',
@@ -36,29 +54,43 @@ columns = [
     'Total Coliform (MPN/100ml) (Min)', 'Total Coliform (MPN/100ml) (Max)'
 ]
 
-# Plot distributions of each feature
+# ------------------------------
+# PLOT DISTRIBUTIONS OF EACH FEATURE
+# ------------------------------
+print("📊 Generating histograms for each feature...")
+
 fig, axes = plt.subplots(4, 4, figsize=(15, 10))
 axes = axes.flatten()
 
 for i, col in enumerate(columns):
-    sns.histplot(df[col], kde=True, ax=axes[i])
-    axes[i].set_title(col)
+    if col in df.columns:
+        sns.histplot(df[col], kde=True, ax=axes[i])
+        axes[i].set_title(col)
 
 plt.tight_layout()
 plt.show()
 
-# Boxplot by 'Type Water Body'
+# ------------------------------
+# PLOT BOXPLOTS BY 'Type Water Body'
+# ------------------------------
+print("📊 Generating boxplots for each feature grouped by 'Type Water Body'...")
+
 fig, axes = plt.subplots(4, 4, figsize=(15, 10))
 axes = axes.flatten()
 
 for i, col in enumerate(columns):
-    sns.boxplot(data=df, x='Type Water Body', y=col, ax=axes[i])
-    axes[i].set_title(col)
+    if col in df.columns:
+        sns.boxplot(data=df, x='Type Water Body', y=col, ax=axes[i])
+        axes[i].set_title(col)
 
 plt.tight_layout()
 plt.show()
 
-# Correlation matrix heatmap
+# ------------------------------
+# GENERATE CORRELATION HEATMAP
+# ------------------------------
+print("📊 Generating correlation heatmap...")
+
 numeric_df = df.select_dtypes(include=['float64', 'int64'])
 corr_matrix = numeric_df.corr()
 
@@ -67,7 +99,11 @@ sns.heatmap(corr_matrix, annot=True, cbar=False, cmap='Blues', fmt='.1f')
 plt.title("Correlation Heatmap")
 plt.show()
 
-# Pairwise lmplot visualizations
+# ------------------------------
+# PLOT RELATIONSHIPS BETWEEN VARIABLES
+# ------------------------------
+print("📊 Generating scatter plots with regression lines...")
+
 pairs = [
     ('Temperature\n?C (Max)', 'Dissolved Oxygen (mg/L) (Max)'),
     ('Temperature\n?C (Min)', 'Dissolved Oxygen (mg/L) (Max)'),
@@ -80,24 +116,48 @@ pairs = [
 ]
 
 for x_col, y_col in pairs:
-    cleaned_df = df.dropna(subset=[x_col, y_col, 'Type Water Body'])
-    cleaned_df[x_col] = pd.to_numeric(cleaned_df[x_col], errors='coerce')
-    cleaned_df[y_col] = pd.to_numeric(cleaned_df[y_col], errors='coerce')
+    if x_col in df.columns and y_col in df.columns:
+        cleaned_df = df.dropna(subset=[x_col, y_col, 'Type Water Body'])
+        cleaned_df[x_col] = pd.to_numeric(cleaned_df[x_col], errors='coerce')
+        cleaned_df[y_col] = pd.to_numeric(cleaned_df[y_col], errors='coerce')
 
-    sns.lmplot(data=cleaned_df, x=x_col, y=y_col, hue='Type Water Body')
-    plt.title(f'{x_col} vs {y_col}')
-    plt.show()
+        sns.lmplot(data=cleaned_df, x=x_col, y=y_col, hue='Type Water Body')
+        plt.title(f'{x_col} vs {y_col}')
+        plt.show()
 
-# Data Cleaning & Encoding
-df1 = df.drop(["STN\nCode", "Name of Monitoring Location"], axis=1)
-df1 = df1.dropna(how='any')  # Drop rows with any missing values
+# ------------------------------
+# DATA CLEANING & ENCODING
+# ------------------------------
+print("🛠️ Cleaning and encoding data...")
 
-# Display missing values
+# Drop unnecessary columns
+if "STN\nCode" in df.columns and "Name of Monitoring Location" in df.columns:
+    df1 = df.drop(["STN\nCode", "Name of Monitoring Location"], axis=1)
+else:
+    df1 = df.copy()
+
+# Drop rows with any missing values
+df1 = df1.dropna(how='any')
+
+# Display missing values count
 missing_values = pd.DataFrame(df1.isnull().sum()).T
+print("🔍 Missing values in dataset:")
 print(missing_values)
 
 # Convert columns to dictionary format for reference
 df_list = df1.columns.to_list()
 df_dict = {column: i for i, column in enumerate(df_list)}
 
-print(f"Total features: {len(df_list)}")
+print(f"✅ Total features after cleaning: {len(df_list)}")
+
+# ------------------------------
+# SAVE CLEANED DATASET
+# ------------------------------
+output_filename = "cleaned_data.csv"
+df1.to_csv(output_filename, index=False)
+print(f"✅ Cleaned dataset saved as {output_filename}")
+
+# ------------------------------
+# END OF SCRIPT
+# ------------------------------
+print("🎉 Data analysis and visualization completed successfully!")
