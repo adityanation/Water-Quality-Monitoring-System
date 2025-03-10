@@ -1,193 +1,103 @@
-col=['Temperature\n?C (Min)', 'Temperature\n?C (Max)',
-       'Dissolved Oxygen (mg/L) (Min)', 'Dissolved Oxyg en (mg/L) (Max)',
-       'pH (Min)', 'pH (Max)', 'Conductivity (?mhos/cm) (Min)',
-       'Conductivity (?mhos/cm) (Max)', 'BOD (mg/L) (Min)', 'BOD (mg/L) (Max)',
-       'Nitrate N + Nitrite N(mg/L) (Min)',
-       'Nitrate N + Nitrite N(mg/L) (Max)', 'Fecal Coliform (MPN/100ml) (Min)',
-       'Fecal Coliform (MPN/100ml) (Max)', 'Total Coliform (MPN/100ml) (Min)',
-       'Total Coliform (MPN/100ml) (Max)']
-fig = plt.figure(figsize=(15,10))
-
-for i in range(len(col)):
-    plt.subplot(4,4,i+1)
-    plt.title(col[i])
-    sns.distplot(df,x=df[col[i]])
-plt.tight_layout()
-
-fig = plt.figure(figsize=(15,10))
-
-for i in range(len(col)):
-    plt.subplot(4,4,i+1)
-    plt.title(col[i])
-    sns.boxplot(data=df,y=df[col[i]],x=df['Type Water Body'])
-plt.tight_layout()
-plt.show()
-#this one is boxplot by features
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import pandas as pd
 import seaborn as sns
-
-# Assuming 'df' is your DataFrame
-
-# Select only numeric columns
-numeric_df = df.select_dtypes(include=['float64', 'int64'])
-
-# Calculate correlation matrix
-corr_matrix = numeric_df.corr()
-
-# Plot heatmap
-sns.heatmap(corr_matrix, annot=True, cbar=False, cmap='Blues', fmt='.1f');
-import seaborn as sns
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with missing values in specified columns
-cols = ['Temperature\n?C (Max)', 'Dissolved Oxygen (mg/L) (Max)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Temperature\n?C (Max)'] = pd.to_numeric(cleaned_df['Temperature\n?C (Max)'], errors='coerce')
-cleaned_df['Dissolved Oxygen (mg/L) (Max)'] = pd.to_numeric(cleaned_df['Dissolved Oxygen (mg/L) (Max)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Temperature\n?C (Max)', y='Dissolved Oxygen (mg/L) (Max)', hue='Type Water Body');
-
-
-import seaborn as sns
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with missing values in specified columns
-cols = ['Temperature\n?C (Min)', 'Dissolved Oxygen (mg/L) (Max)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Temperature\n?C (Min)'] = pd.to_numeric(cleaned_df['Temperature\n?C (Min)'], errors='coerce')
-cleaned_df['Dissolved Oxygen (mg/L) (Max)'] = pd.to_numeric(cleaned_df['Dissolved Oxygen (mg/L) (Max)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Temperature\n?C (Min)', y='Dissolved Oxygen (mg/L) (Max)', hue='Type Water Body');
-
-
-import seaborn as sns
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with missing values in specified columns
-cols = ['Temperature\n?C (Max)', 'Dissolved Oxygen (mg/L) (Min)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Temperature\n?C (Max)'] = pd.to_numeric(cleaned_df['Temperature\n?C (Max)'], errors='coerce')
-cleaned_df['Dissolved Oxygen (mg/L) (Min)'] = pd.to_numeric(cleaned_df['Dissolved Oxygen (mg/L) (Min)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Temperature\n?C (Max)', y='Dissolved Oxygen (mg/L) (Min)', hue='Type Water Body');
-
-
-import seaborn as sns
-import pandas as pd
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with missing values in specified columns
-cols = ['Temperature\n?C (Min)', 'Dissolved Oxygen (mg/L) (Min)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Temperature\n?C (Min)'] = pd.to_numeric(cleaned_df['Temperature\n?C (Min)'], errors='coerce')
-cleaned_df['Dissolved Oxygen (mg/L) (Min)'] = pd.to_numeric(cleaned_df['Dissolved Oxygen (mg/L) (Min)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Temperature\n?C (Min)', y='Dissolved Oxygen (mg/L) (Min)', hue='Type Water Body');
-
-
-import seaborn as sns
-import pandas as pd
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with non-numeric values in specified columns
-cols = ['Conductivity (?mhos/cm) (Max)', 'pH (Max)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Conductivity (?mhos/cm) (Max)'] = pd.to_numeric(cleaned_df['Conductivity (?mhos/cm) (Max)'], errors='coerce')
-cleaned_df['pH (Max)'] = pd.to_numeric(cleaned_df['pH (Max)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Conductivity (?mhos/cm) (Max)', y='pH (Max)', hue='Type Water Body');
-
-
-import seaborn as sns
-import pandas as pd
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with non-numeric values in specified columns
-cols = ['Conductivity (?mhos/cm) (Min)', 'pH (Max)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Conductivity (?mhos/cm) (Min)'] = pd.to_numeric(cleaned_df['Conductivity (?mhos/cm) (Min)'], errors='coerce')
-cleaned_df['pH (Max)'] = pd.to_numeric(cleaned_df['pH (Max)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Conductivity (?mhos/cm) (Min)', y='pH (Max)', hue='Type Water Body');
-
-
-import seaborn as sns
-import pandas as pd
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with non-numeric values in specified columns
-cols = ['Conductivity (?mhos/cm) (Max)', 'pH (Min)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Conductivity (?mhos/cm) (Max)'] = pd.to_numeric(cleaned_df['Conductivity (?mhos/cm) (Max)'], errors='coerce')
-cleaned_df['pH (Min)'] = pd.to_numeric(cleaned_df['pH (Min)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Conductivity (?mhos/cm) (Max)', y='pH (Min)', hue='Type Water Body');
-
-
-import seaborn as sns
-import pandas as pd
-
-# Assuming 'df' is your DataFrame
-
-# Remove rows with non-numeric values in specified columns
-cols = ['Conductivity (?mhos/cm) (Min)', 'pH (Min)', 'Type Water Body']
-cleaned_df = df.dropna(subset=cols)
-
-# Convert necessary columns to numeric
-cleaned_df['Conductivity (?mhos/cm) (Min)'] = pd.to_numeric(cleaned_df['Conductivity (?mhos/cm) (Min)'], errors='coerce')
-cleaned_df['pH (Min)'] = pd.to_numeric(cleaned_df['pH (Min)'], errors='coerce')
-
-# Plot lmplot
-sns.lmplot(data=cleaned_df, x='Conductivity (?mhos/cm) (Min)', y='pH (Min)', hue='Type Water Body');
-
-
-from IPython.display import Image
+import matplotlib.pyplot as plt
 import category_encoders as ce
-
 import graphviz
 import lingam
 from lingam.utils import make_dot, make_prior_knowledge
 
+import warnings
+warnings.filterwarnings("ignore")  # Suppress warnings for clean output
 
-df1 = df.drop(["STN\nCode","Name of Monitoring Location"], axis=1)
+# Debugging: Check if running in an interactive environment
+try:
+    from IPython import get_ipython
+    if get_ipython():
+        print("Running in an interactive environment (e.g., Jupyter Notebook).")
+    else:
+        print("Running in a script execution environment.")
+except:
+    print("Standard execution mode detected.")
 
-df1 = df1.dropna(how='any')
+# Assuming 'df' is your DataFrame
+# Load your dataset here if needed, e.g., df = pd.read_csv("your_data.csv")
 
-display(pd.DataFrame(df1.isnull().sum()).T)
+# Define column names
+columns = [
+    'Temperature\n?C (Min)', 'Temperature\n?C (Max)',
+    'Dissolved Oxygen (mg/L) (Min)', 'Dissolved Oxygen (mg/L) (Max)',
+    'pH (Min)', 'pH (Max)', 'Conductivity (?mhos/cm) (Min)',
+    'Conductivity (?mhos/cm) (Max)', 'BOD (mg/L) (Min)', 'BOD (mg/L) (Max)',
+    'Nitrate N + Nitrite N(mg/L) (Min)', 'Nitrate N + Nitrite N(mg/L) (Max)',
+    'Fecal Coliform (MPN/100ml) (Min)', 'Fecal Coliform (MPN/100ml) (Max)',
+    'Total Coliform (MPN/100ml) (Min)', 'Total Coliform (MPN/100ml) (Max)'
+]
 
+# Plot distributions of each feature
+fig, axes = plt.subplots(4, 4, figsize=(15, 10))
+axes = axes.flatten()
+
+for i, col in enumerate(columns):
+    sns.histplot(df[col], kde=True, ax=axes[i])
+    axes[i].set_title(col)
+
+plt.tight_layout()
+plt.show()
+
+# Boxplot by 'Type Water Body'
+fig, axes = plt.subplots(4, 4, figsize=(15, 10))
+axes = axes.flatten()
+
+for i, col in enumerate(columns):
+    sns.boxplot(data=df, x='Type Water Body', y=col, ax=axes[i])
+    axes[i].set_title(col)
+
+plt.tight_layout()
+plt.show()
+
+# Correlation matrix heatmap
+numeric_df = df.select_dtypes(include=['float64', 'int64'])
+corr_matrix = numeric_df.corr()
+
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr_matrix, annot=True, cbar=False, cmap='Blues', fmt='.1f')
+plt.title("Correlation Heatmap")
+plt.show()
+
+# Pairwise lmplot visualizations
+pairs = [
+    ('Temperature\n?C (Max)', 'Dissolved Oxygen (mg/L) (Max)'),
+    ('Temperature\n?C (Min)', 'Dissolved Oxygen (mg/L) (Max)'),
+    ('Temperature\n?C (Max)', 'Dissolved Oxygen (mg/L) (Min)'),
+    ('Temperature\n?C (Min)', 'Dissolved Oxygen (mg/L) (Min)'),
+    ('Conductivity (?mhos/cm) (Max)', 'pH (Max)'),
+    ('Conductivity (?mhos/cm) (Min)', 'pH (Max)'),
+    ('Conductivity (?mhos/cm) (Max)', 'pH (Min)'),
+    ('Conductivity (?mhos/cm) (Min)', 'pH (Min)')
+]
+
+for x_col, y_col in pairs:
+    cleaned_df = df.dropna(subset=[x_col, y_col, 'Type Water Body'])
+    cleaned_df[x_col] = pd.to_numeric(cleaned_df[x_col], errors='coerce')
+    cleaned_df[y_col] = pd.to_numeric(cleaned_df[y_col], errors='coerce')
+
+    sns.lmplot(data=cleaned_df, x=x_col, y=y_col, hue='Type Water Body')
+    plt.title(f'{x_col} vs {y_col}')
+    plt.show()
+
+# Data Cleaning & Encoding
+df1 = df.drop(["STN\nCode", "Name of Monitoring Location"], axis=1)
+df1 = df1.dropna(how='any')  # Drop rows with any missing values
+
+# Display missing values
+missing_values = pd.DataFrame(df1.isnull().sum()).T
+print(missing_values)
+
+# Convert columns to dictionary format for reference
 df_list = df1.columns.to_list()
-df_dict = {}
+df_dict = {column: i for i, column in enumerate(df_list)}
 
-for i, column in zip(range(len(df_list)), df_list):
-    df_dict[column] = i
-
-print(len(df_list))
+print(f"Total features: {len(df_list)}")
