@@ -88,11 +88,5 @@ This project is licensed under the MIT License.
 
 ## Contributors
 
-Your Name - Aditya SInha
 
-Contributions are welcome! Feel free to fork the repository and submit pull requests.
-
-## Contact
-
-For any inquiries or support, please reach out to adityasinha06841@gmail.com
 
